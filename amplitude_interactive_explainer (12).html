@@ -1,0 +1,631 @@
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#0A1628;--navy2:#162236;--navy3:#1E3355;
+  --gold:#C9A55A;--gold2:#E2C88A;--gold3:#F5EACC;
+  --white:#FFFFFF;--cream:#F7F5F2;--off:#EFEDE9;
+  --text:#0A1628;--t2:#3D4F63;--t3:#7A8FA3;
+  --border:#DDD8D0;--border2:#C8C2B8;
+  --red:#B83232;--redbg:#FEF2F2;--redbr:#F5C0C0;
+  --grn:#1A5C38;--grnbg:#F0FAF4;--grnbr:#A8DCBA;
+  --amb:#8B5E0A;--ambbg:#FEF8EE;--ambbr:#E0C080;
+  --purp:#4A2E8A;--purpbg:#F3F0FA;--purpbr:#C8B8F0;
+}
+body{font-family:'Inter',system-ui,sans-serif;background:var(--cream);color:var(--text);-webkit-font-smoothing:antialiased;font-size:15px}
+.topbar{display:flex;align-items:center;justify-content:space-between;height:58px;padding:0 24px;background:var(--navy);border-bottom:1px solid rgba(255,255,255,.06)}
+.logo{display:flex;align-items:center;gap:12px}
+.lm{display:flex;align-items:flex-end;gap:3px;padding:5px 6px;border:1px solid rgba(201,165,90,.4);border-radius:7px}
+.lb{width:4px;border-radius:2px;background:var(--gold)}
+.bn{font-size:15px;font-weight:600;color:#fff;letter-spacing:-.02em}
+.bs{font-size:12px;color:var(--gold2);font-weight:300;margin-left:4px}
+.navtabs{display:flex;align-items:center;gap:2px;overflow-x:auto}
+.ntab{padding:6px 10px;font-size:11px;font-weight:500;color:rgba(255,255,255,.35);border:none;background:transparent;cursor:pointer;font-family:inherit;border-radius:6px;letter-spacing:.02em;transition:all .2s;white-space:nowrap;flex-shrink:0}
+.ntab.a{color:#fff;background:rgba(255,255,255,.1)}
+.ntab:hover:not(.a){color:rgba(255,255,255,.65)}
+.plab{font-size:11px;color:rgba(255,255,255,.25);letter-spacing:.08em;margin-left:8px;min-width:32px;flex-shrink:0}
+.body{padding:40px 40px 24px;max-width:960px;margin:0 auto;width:100%}
+.slide{display:none}.slide.on{display:block}
+.ey{font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:12px}
+.h1{font-size:34px;font-weight:700;color:var(--navy);line-height:1.1;margin-bottom:12px;letter-spacing:-.03em}
+.sub{font-size:15px;color:var(--t2);line-height:1.7;margin-bottom:28px;font-weight:300;max-width:600px}
+.g2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.g3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.g5{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}
+.card{background:var(--white);border:1px solid var(--border);border-radius:16px;padding:22px 26px}
+.badge{display:inline-flex;align-items:center;font-size:11px;font-weight:600;padding:3px 10px;border-radius:20px;letter-spacing:.03em}
+.bg{background:var(--grnbg);color:var(--grn);border:1px solid var(--grnbr)}
+.bt{background:#EBF5F5;color:#1A5555;border:1px solid #A8D8D8}
+.ba{background:var(--ambbg);color:var(--amb);border:1px solid var(--ambbr)}
+.br{background:var(--redbg);color:var(--red);border:1px solid var(--redbr)}
+.bb{background:#EBF0FA;color:#1E3A7A;border:1px solid #B8CCE8}
+.bgo{background:#FBF5E8;color:#7A4E18;border:1px solid #D8B870}
+.bx{background:var(--off);color:var(--t2);border:1px solid var(--border)}
+.bp{background:var(--purpbg);color:var(--purp);border:1px solid var(--purpbr)}
+.met{background:var(--navy);border-radius:14px;padding:20px 22px}
+.mv{font-size:32px;font-weight:700;color:#fff;letter-spacing:-.03em;margin-bottom:4px}
+.mla{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold2);margin-bottom:10px}
+.ms{font-size:12px;color:rgba(255,255,255,.45);font-weight:300}
+.pill{display:inline-block;font-size:11px;padding:4px 11px;border-radius:20px;margin:3px;font-family:ui-monospace,monospace;font-weight:500}
+.pb{background:var(--redbg);color:var(--red);border:1px solid var(--redbr)}
+.pg{background:var(--grnbg);color:var(--grn);border:1px solid var(--grnbr)}
+.cmp{border-radius:12px;padding:18px 20px}
+.cb{background:var(--redbg);border:1px solid var(--redbr)}
+.cg{background:var(--grnbg);border:1px solid var(--grnbr)}
+.cmp-h{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;margin-bottom:12px}
+.cb .cmp-h{color:var(--red)}.cg .cmp-h{color:var(--grn)}
+.mono{font-family:ui-monospace,monospace;font-size:13px}
+.callout{background:var(--navy);border-radius:14px;padding:20px 24px;margin-top:16px}
+.cah{font-size:10px;font-weight:700;color:var(--gold);letter-spacing:.14em;text-transform:uppercase;margin-bottom:8px}
+.cab{font-size:14px;color:rgba(255,255,255,.75);line-height:1.7;font-weight:300}
+.seg{display:flex;background:var(--off);border:1px solid var(--border);border-radius:10px;padding:3px;margin-bottom:20px;gap:3px;flex-wrap:wrap}
+.sb{flex:1;padding:8px 10px;font-size:12px;border:none;background:transparent;color:var(--t2);cursor:pointer;border-radius:8px;font-family:inherit;font-weight:400;transition:all .18s;min-width:80px}
+.sb.on{background:var(--navy);color:#fff;font-weight:500}
+.row{display:flex;gap:12px;align-items:flex-start;padding:11px 0;border-bottom:1px solid var(--border)}
+.row:last-child{border-bottom:none}
+.rdot{width:8px;height:8px;border-radius:50%;flex-shrink:0;margin-top:5px}
+.rt{font-size:14px;color:var(--text);line-height:1.5;flex:1;font-weight:500}
+.rn{font-size:13px;color:var(--t2);font-weight:300}
+.sp{font-size:11px;font-weight:600;padding:3px 10px;border-radius:20px;white-space:nowrap;flex-shrink:0;border:1px solid;letter-spacing:.03em}
+.vrow{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+.vname{font-size:13px;color:var(--text);flex:0 0 205px;line-height:1.4;font-weight:500}
+.vsub{font-size:11px;color:var(--t3);font-weight:300}
+.vtrack{flex:1;height:7px;background:var(--off);border-radius:4px;overflow:hidden;border:1px solid var(--border)}
+.vfill{height:100%;border-radius:4px;background:var(--navy)}
+.vnum{font-size:12px;color:var(--t2);flex:0 0 72px;text-align:right;font-weight:500}
+.rdotgold{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--gold);margin-left:5px;vertical-align:middle}
+.tf{margin-bottom:14px}
+.tfl{font-size:10px;font-weight:700;color:var(--t3);letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px}
+.tfv{font-family:ui-monospace,monospace;font-size:13px;color:var(--text);background:var(--cream);border-radius:8px;padding:11px 14px;border:1px solid var(--border);line-height:1.65}
+.tfv.hi{background:var(--grnbg);border-color:var(--grnbr);color:var(--grn);font-weight:500}
+.pc{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:16px}
+.pn{font-size:13px;font-weight:600;color:var(--navy);margin-bottom:2px}
+.pm{font-size:11px;color:var(--t3);margin-bottom:10px}
+.pbox{background:var(--white);border:1px solid var(--border);border-radius:10px;padding:14px 18px;margin-bottom:10px}
+.pnew{background:var(--navy);border-radius:14px;padding:20px 22px}
+.pitem{font-size:13px;color:rgba(255,255,255,.75);background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:10px 14px;margin-bottom:8px;font-weight:300}
+.pitem:last-child{margin-bottom:0}
+.pcap{font-size:11px;color:var(--gold2);margin-top:14px;font-weight:500;letter-spacing:.05em}
+.blist{display:flex;flex-direction:column;gap:8px}
+.bli{display:flex;gap:10px;align-items:flex-start}
+.bldot{width:6px;height:6px;border-radius:50%;background:var(--gold);flex-shrink:0;margin-top:6px}
+.blt{font-size:14px;color:var(--t2);line-height:1.55;font-weight:300}
+.blt strong{color:var(--navy);font-weight:600}
+.anum{width:28px;height:28px;border-radius:50%;background:var(--navy);color:var(--gold);font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
+.at{font-size:15px;color:var(--navy);font-weight:600;margin-bottom:3px;letter-spacing:-.01em}
+.an{font-size:13px;color:var(--t2);font-weight:300;line-height:1.5}
+.mtrack{display:flex;flex-direction:column}
+.ms-row{display:flex;gap:0;align-items:stretch}
+.ms-left{display:flex;flex-direction:column;align-items:center;width:40px;flex-shrink:0}
+.ms-circle{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;z-index:1}
+.ms-line{width:2px;flex:1;min-height:12px;background:var(--border)}
+.ms-line.done{background:var(--grn)}
+.ms-line.now{background:var(--gold)}
+.ms-content{padding:2px 0 18px 12px;flex:1}
+.ms-title{font-size:14px;font-weight:600;color:var(--navy);margin-bottom:3px}
+.ms-desc{font-size:13px;color:var(--t2);font-weight:300;line-height:1.5}
+.rule-card{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:18px 20px}
+.rule-h{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--t3);margin-bottom:10px}
+.rule-ex{font-family:ui-monospace,monospace;font-size:12px;padding:8px 12px;border-radius:7px;margin-top:6px;line-height:1.6}
+.rule-bad{background:var(--redbg);color:var(--red);border:1px solid var(--redbr)}
+.rule-good{background:var(--grnbg);color:var(--grn);border:1px solid var(--grnbr)}
+.opp-card{background:var(--white);border:1px solid var(--border);border-radius:14px;padding:22px 26px}
+.opp-ey{font-size:10px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);margin-bottom:6px}
+.opp-title{font-size:20px;font-weight:600;color:var(--navy);margin-bottom:10px;letter-spacing:-.01em;line-height:1.2}
+.opp-desc{font-size:14px;color:var(--t2);line-height:1.7;font-weight:300;margin-bottom:16px}
+.opp-link{font-size:12px;color:var(--navy);font-weight:500;text-decoration:none;background:var(--off);padding:5px 12px;border-radius:8px;border:1px solid var(--border);display:inline-block;margin:3px 4px 3px 0}
+.divider{border:none;border-top:1px solid var(--border);margin:20px 0}
+.fnav{display:flex;justify-content:space-between;align-items:center;padding:16px 40px;border-top:1px solid var(--border);background:var(--white)}
+.fbtn{padding:10px 22px;border-radius:10px;border:1.5px solid var(--border2);font-size:14px;font-weight:500;cursor:pointer;background:var(--white);color:var(--text);font-family:inherit;letter-spacing:-.01em;transition:all .15s}
+.fbtn:hover{border-color:var(--navy);color:var(--navy)}
+.fbtn.p{background:var(--navy);color:#fff;border-color:var(--navy)}
+.fbtn.p:hover{background:var(--navy2)}
+.fbtn:disabled{opacity:.2;cursor:default}
+.fcnt{font-size:12px;color:var(--t3);font-weight:500;letter-spacing:.06em}
+canvas{display:block;width:100%!important}
+</style>
+
+<div style="display:flex;flex-direction:column">
+<h2 style="position:absolute;width:1px;height:1px;overflow:hidden">Amplitude governance — Symplast interactive presentation</h2>
+
+<div class="topbar">
+  <div class="logo">
+    <div class="lm"><div class="lb" style="height:5px"></div><div class="lb" style="height:9px"></div><div class="lb" style="height:14px"></div></div>
+    <span class="bn">Symplast</span>
+    <span class="bs">Amplitude governance · April 2026</span>
+  </div>
+  <div style="display:flex;align-items:center;gap:4px;overflow:hidden">
+    <div class="navtabs" id="navtabs"></div>
+    <span class="plab" id="plbl">1/9</span>
+  </div>
+</div>
+
+<!-- S0 INTRO -->
+<div class="slide on" id="s0"><div class="body">
+  <div class="ey">Efficiency Pod · April 2026</div>
+  <h1 class="h1">Amplitude governance<br>&amp; event standards</h1>
+  <p class="sub">Full audit complete. Here's what we found, what we're proposing, and what it unlocks for every team.</p>
+  <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:32px">
+    <span class="badge bb">Engineering</span><span class="badge bb">QA</span><span class="badge bb">Leadership</span><span class="badge bx">~45 min</span>
+  </div>
+  <div class="g3">
+    <div class="card" style="border-top:3px solid var(--red)">
+      <div class="ey" style="color:var(--red);margin-bottom:10px">The problem</div>
+      <div class="blist">
+        <div class="bli"><div class="bldot" style="background:var(--red)"></div><span class="blt"><strong>12 Pattern B events</strong> — funnels broken</span></div>
+        <div class="bli"><div class="bldot" style="background:var(--red)"></div><span class="blt"><strong>1.4M+ events/month</strong> blocked from analysis</span></div>
+        <div class="bli"><div class="bldot" style="background:var(--red)"></div><span class="blt"><strong>5 fragmented projects</strong> — no cross-product view</span></div>
+      </div>
+    </div>
+    <div class="card" style="border-top:3px solid var(--gold)">
+      <div class="ey" style="margin-bottom:10px">The proposal</div>
+      <div class="blist">
+        <div class="bli"><div class="bldot"></div><span class="blt"><strong>One unified project</strong> — full cross-product analysis</span></div>
+        <div class="bli"><div class="bldot"></div><span class="blt"><strong>Pattern A events</strong> — one event per action</span></div>
+        <div class="bli"><div class="bldot"></div><span class="blt"><strong>Linear template</strong> — prevents future debt</span></div>
+      </div>
+    </div>
+    <div class="card" style="border-top:3px solid var(--grn)">
+      <div class="ey" style="color:var(--grn);margin-bottom:10px">What we unlock</div>
+      <div class="blist">
+        <div class="bli"><div class="bldot" style="background:var(--grn)"></div><span class="blt">Full <strong>funnel &amp; retention</strong> analysis</span></div>
+        <div class="bli"><div class="bldot" style="background:var(--grn)"></div><span class="blt"><strong>Cross-workflow journeys</strong> — provider + patient</span></div>
+        <div class="bli"><div class="bldot" style="background:var(--grn)"></div><span class="blt"><strong>Session replay</strong> filtering by event</span></div>
+      </div>
+    </div>
+  </div>
+</div></div>
+
+<!-- S1 AUDIT -->
+<div class="slide" id="s1"><div class="body">
+  <div class="ey">Audit findings</div>
+  <h1 class="h1">Five products.<br>Very different results.</h1>
+  <p class="sub">We graded every product on implementation quality. Three need significant work.</p>
+  <div class="g5" style="margin-bottom:22px">
+    <div class="pc"><p class="pn">Patient app</p><p class="pm">App 776904</p><span class="badge bg">A−</span><p style="font-size:11px;color:var(--t3);margin-top:8px;line-height:1.5">Best impl — our template</p></div>
+    <div class="pc"><p class="pn">Symplast forms</p><p class="pm">App 787076</p><span class="badge bt">B+</span><p style="font-size:11px;color:var(--t3);margin-top:8px;line-height:1.5">Mostly clean</p></div>
+    <div class="pc"><p class="pn">Practice app</p><p class="pm">App 699710</p><span class="badge ba">C−</span><p style="font-size:11px;color:var(--t3);margin-top:8px;line-height:1.5">7 Pattern B, replay active</p></div>
+    <div class="pc"><p class="pn">Booking portal</p><p class="pm">App 678292</p><span class="badge ba">D+</span><p style="font-size:11px;color:var(--t3);margin-top:8px;line-height:1.5">Replay active, needs cleanup</p></div>
+    <div class="pc"><p class="pn">Kiosk app</p><p class="pm">App 714530</p><span class="badge br">F</span><p style="font-size:11px;color:var(--t3);margin-top:8px;line-height:1.5">Zero events, no replay</p></div>
+  </div>
+  <div class="g3" style="margin-bottom:22px">
+    <div class="met"><p class="mla">Pattern B events</p><p class="mv">12</p><p class="ms">Across 3 products</p></div>
+    <div class="met"><p class="mla">Monthly events affected</p><p class="mv">1.4M+</p><p class="ms">Practice App: 1.47M alone</p></div>
+    <div class="met"><p class="mla">Kiosk custom events</p><p class="mv">0</p><p class="ms">Complete blind spot</p></div>
+  </div>
+  <div class="card">
+    <p style="font-size:13px;font-weight:600;color:var(--navy);margin-bottom:18px">Pattern B event volume — where the problem is concentrated</p>
+    <div style="display:flex;gap:28px;align-items:center">
+      <div style="position:relative;width:150px;height:150px;flex-shrink:0">
+        <canvas id="donut" width="150" height="150"></canvas>
+        <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;pointer-events:none">
+          <div style="font-size:18px;font-weight:700;color:var(--navy)">1.48M</div>
+          <div style="font-size:9px;color:var(--t3);font-weight:600;letter-spacing:.05em">EVT/MO</div>
+        </div>
+      </div>
+      <div style="flex:1" id="donut-legend"></div>
+    </div>
+  </div>
+</div></div>
+
+<!-- S2 CONSOLIDATION -->
+<div class="slide" id="s2"><div class="body">
+  <div class="ey">Project consolidation</div>
+  <h1 class="h1">Five projects.<br>One should be enough.</h1>
+  <p class="sub">Amplitude is designed around a single project as the unit of analysis. Splitting products breaks every cross-team workflow.</p>
+  <div class="g2" style="margin-bottom:18px">
+    <div>
+      <p style="font-size:10px;font-weight:700;color:var(--red);text-transform:uppercase;letter-spacing:.12em;margin-bottom:12px">Today — fragmented</p>
+      <div class="pbox"><p style="font-size:14px;font-weight:600;color:var(--navy);margin-bottom:2px">Project A — Practice App</p><p style="font-size:13px;color:var(--t2);font-weight:300">Provider: scheduling, EHR, video, checkout</p></div>
+      <div class="pbox"><p style="font-size:14px;font-weight:600;color:var(--navy);margin-bottom:2px">Project B — Patient App</p><p style="font-size:13px;color:var(--t2);font-weight:300">Patient: appointments, messaging, forms</p></div>
+      <div class="pbox"><p style="font-size:14px;font-weight:600;color:var(--navy);margin-bottom:2px">Project C — Booking Portal</p><p style="font-size:13px;color:var(--t2);font-weight:300">Online appointment requests</p></div>
+      <div class="pbox"><p style="font-size:14px;font-weight:600;color:var(--navy);margin-bottom:2px">+ Kiosk &amp; Forms (separate)</p><p style="font-size:13px;color:var(--t2);font-weight:300">No cross-product visibility</p></div>
+    </div>
+    <div>
+      <p style="font-size:10px;font-weight:700;color:var(--grn);text-transform:uppercase;letter-spacing:.12em;margin-bottom:12px">Proposed — unified</p>
+      <div class="pnew">
+        <p style="font-size:14px;font-weight:600;color:#fff;margin-bottom:6px">Symplast — one customer-facing project</p>
+        <p style="font-size:11px;color:var(--gold2);margin-bottom:12px;font-weight:400">Practice App becomes the base — all other products migrate into it</p>
+        <div class="pitem">Practice App — provider events (base project)</div>
+        <div class="pitem">Patient App — migrates in</div>
+        <div class="pitem">Booking Portal — migrates in</div>
+        <div class="pitem">Kiosk + Forms — migrates in</div>
+        <p class="pcap">Shared schema · shared properties · full cross-product analysis</p>
+      </div>
+      <div style="margin-top:10px;background:var(--purpbg);border:1px solid var(--purpbr);border-radius:10px;padding:14px 18px">
+        <p style="font-size:11px;font-weight:700;color:var(--purp);letter-spacing:.08em;text-transform:uppercase;margin-bottom:5px">Separate project — later phase</p>
+        <p style="font-size:13px;color:var(--purp);font-weight:300;line-height:1.5">Symplast Internal Admin — scoped separately to keep internal tooling data clean from customer-facing instrumentation</p>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <p style="font-size:13px;font-weight:600;color:var(--navy);margin-bottom:14px">What changes — toggle to compare</p>
+    <div class="seg" id="cseg"><button class="sb on" onclick="showCon('before')">Today — fragmented</button><button class="sb" onclick="showCon('after')">After — unified</button></div>
+    <div id="cv"></div>
+  </div>
+</div></div>
+
+<!-- S3 PATTERN A -->
+<div class="slide" id="s3"><div class="body">
+  <div class="ey">Pattern A migration</div>
+  <h1 class="h1">One event per action.<br>No exceptions.</h1>
+  <p class="sub">Amplitude funnels, retention, and session replay all key off event <em>names</em> — not property values. Pattern B breaks all of it.</p>
+  <div class="seg" id="exseg">
+    <button class="sb on" onclick="showEx('video')">VideoVisit</button>
+    <button class="sb" onclick="showEx('window')">View Opened</button>
+    <button class="sb" onclick="showEx('screen')">Screen Viewed</button>
+  </div>
+  <div id="ex-video">
+    <div class="g2" style="margin-bottom:14px">
+      <div class="cmp cb"><p class="cmp-h">Pattern B — today</p><p class="mono" style="color:var(--red);margin-bottom:10px;font-weight:600">VideoVisit</p><span class="pill pb">action: "started"</span><span class="pill pb">action: "muted"</span><span class="pill pb">action: "camera_flipped"</span><span class="pill pb">action: "ended"</span></div>
+      <div class="cmp cg"><p class="cmp-h">Pattern A — proposed</p><span class="pill pg">video_call_connected</span><span class="pill pg">video_call_audio_toggled</span><span class="pill pg">video_call_camera_flipped</span><span class="pill pg">video_call_end_call_pressed</span></div>
+    </div>
+    <div class="callout"><p class="cah">Why it breaks everything</p><p class="cab">Can't funnel call_started → ended · Can't measure drop-off · Can't filter session replays to failed calls · Amplitude funnels on event names only</p></div>
+  </div>
+  <div id="ex-window" style="display:none">
+    <div class="g2" style="margin-bottom:14px">
+      <div class="cmp cb"><p class="cmp-h">Pattern B — today</p><p class="mono" style="color:var(--red);font-size:12px;margin-bottom:10px;font-weight:600">[WindowsPracticeApp] View Opened</p><span class="pill pb">viewName: "PatientFile"</span><span class="pill pb">viewName: "Scheduler"</span><span class="pill pb">viewName: "Checkout"</span><p style="font-size:11px;color:var(--red);margin-top:10px;font-weight:700">1,410,606 events/month</p></div>
+      <div class="cmp cg"><p class="cmp-h">Pattern A — proposed</p><span class="pill pg">patient_file_viewed</span><span class="pill pg">scheduler_view_opened</span><span class="pill pg">checkout_view_opened</span></div>
+    </div>
+    <div class="callout"><p class="cah">Highest-volume Pattern B event</p><p class="cab">Every screen is one blob · Zero per-feature retention · One migration pass unlocks granular adoption data for every screen in the Practice App</p></div>
+  </div>
+  <div id="ex-screen" style="display:none">
+    <div class="g2" style="margin-bottom:14px">
+      <div class="cmp cb"><p class="cmp-h">Pattern B — today</p><p class="mono" style="color:var(--red);font-size:12px;margin-bottom:10px;font-weight:600">Screen Viewed + screen_viewed — same thing, two names</p><span class="pill pb">screen_name: "Home"</span><span class="pill pb">screen_name: "Appointments"</span></div>
+      <div class="cmp cg"><p class="cmp-h">Pattern A — proposed</p><span class="pill pg">home_screen_viewed</span><span class="pill pg">appointments_screen_viewed</span><span class="pill pg">messages_screen_viewed</span></div>
+    </div>
+    <div class="callout"><p class="cah">Duplicate names = broken deduplication</p><p class="cab">Same action, two event names · Manual dedup required · Per-screen retention blocked across the entire patient journey</p></div>
+  </div>
+  <div class="divider"></div>
+  <p style="font-size:13px;font-weight:600;color:var(--navy);margin-bottom:14px">Migration strategy</p>
+  <div class="g3">
+    <div class="rule-card" style="background:var(--redbg);border:1px solid var(--redbr)">
+      <div class="rule-h" style="color:var(--red)">Phase 1 — Highest impact</div>
+      <div class="blist" style="margin-top:4px">
+        <div class="bli"><div class="bldot" style="background:var(--red)"></div><span class="blt" style="font-size:13px"><strong>Consolidate all products</strong> into one unified project first</span></div>
+        <div class="bli"><div class="bldot" style="background:var(--red)"></div><span class="blt" style="font-size:13px">Tackle <strong>highest-volume</strong> Pattern B events in the same engineering pass</span></div>
+        <div class="bli"><div class="bldot" style="background:var(--red)"></div><span class="blt" style="font-size:13px">One pass per app — <strong>don't touch the same app twice</strong></span></div>
+      </div>
+    </div>
+    <div class="rule-card" style="background:var(--ambbg);border:1px solid var(--ambbr)">
+      <div class="rule-h" style="color:var(--amb)">Phase 2 — Schema &amp; cleanup</div>
+      <div class="blist" style="margin-top:4px">
+        <div class="bli"><div class="bldot" style="background:var(--amb)"></div><span class="blt" style="font-size:13px">Add <strong>descriptions &amp; categories</strong> to all events in schema</span></div>
+        <div class="bli"><div class="bldot" style="background:var(--amb)"></div><span class="blt" style="font-size:13px">Consolidate <strong>duplicate user properties</strong> across products</span></div>
+        <div class="bli"><div class="bldot" style="background:var(--amb)"></div><span class="blt" style="font-size:13px">Instrument <strong>Kiosk App</strong> from scratch</span></div>
+      </div>
+    </div>
+    <div class="rule-card" style="background:var(--grnbg);border:1px solid var(--grnbr)">
+      <div class="rule-h" style="color:var(--grn)">Phase 3 — Analytics activation</div>
+      <div class="blist" style="margin-top:4px">
+        <div class="bli"><div class="bldot" style="background:var(--grn)"></div><span class="blt" style="font-size:13px">Build <strong>core funnels</strong> across provider &amp; patient workflows</span></div>
+        <div class="bli"><div class="bldot" style="background:var(--grn)"></div><span class="blt" style="font-size:13px">Enable <strong>retention analysis</strong> &amp; cohort creation</span></div>
+        <div class="bli"><div class="bldot" style="background:var(--grn)"></div><span class="blt" style="font-size:13px">Expand into <strong>alerts, session replay</strong> &amp; experiments</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="callout" style="margin-top:16px"><p class="cah">Guiding principle</p><p class="cab">Consolidation unlocks everything else. Until provider and patient events live in one project with a shared schema, funnel and retention analysis across workflows isn't possible — regardless of how clean the individual events are.</p></div>
+</div></div>
+
+<!-- S4 GUIDELINES -->
+<div class="slide" id="s4"><div class="body">
+  <div class="ey">Event standards</div>
+  <h1 class="h1">Five rules — and why<br>each one matters.</h1>
+  <p class="sub">Every decision here is grounded in how Amplitude actually works. These aren't arbitrary preferences — they're what make the tool usable.</p>
+  <div style="display:flex;flex-direction:column;gap:10px">
+    <div class="rule-card"><div class="g2" style="gap:16px;align-items:start"><div><div class="rule-h">Rule 1 — Event naming: <code style="font-size:11px;background:var(--off);padding:1px 5px;border-radius:3px">snake_case</code> + <code style="font-size:11px;background:var(--off);padding:1px 5px;border-radius:3px">object_action</code></div><div class="rule-ex rule-bad" style="margin-bottom:6px">✗ &nbsp;VideoVisit &nbsp;·&nbsp; [WindowsPracticeApp] View Opened</div><div class="rule-ex rule-good">✓ &nbsp;video_call_connected &nbsp;·&nbsp; patient_file_viewed</div></div><div style="background:var(--navy);border-radius:10px;padding:14px 16px"><div style="font-size:10px;font-weight:700;color:var(--gold);letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px">Why</div><p style="font-size:12px;color:rgba(255,255,255,.7);font-weight:300;line-height:1.65;margin:0"><code style="font-size:11px;color:var(--gold2)">snake_case</code> is Amplitude's own recommended convention. <code style="font-size:11px;color:var(--gold2)">object_action</code> matters because events sort alphabetically in Amplitude's schema view — grouping by object keeps related events together and makes the schema readable at a glance without needing to know the full history of every event name.</p></div></div></div>
+    <div class="rule-card"><div class="g2" style="gap:16px;align-items:start"><div><div class="rule-h">Rule 2 — Property naming: <code style="font-size:11px;background:var(--off);padding:1px 5px;border-radius:3px">camelCase</code></div><div class="rule-ex rule-bad" style="margin-bottom:6px">✗ &nbsp;tenant_id &nbsp;·&nbsp; app_version &nbsp;·&nbsp; user_type</div><div class="rule-ex rule-good">✓ &nbsp;tenantId &nbsp;·&nbsp; appVersion &nbsp;·&nbsp; userType</div></div><div style="background:var(--navy);border-radius:10px;padding:14px 16px"><div style="font-size:10px;font-weight:700;color:var(--gold);letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px">Why</div><p style="font-size:12px;color:rgba(255,255,255,.7);font-weight:300;line-height:1.65;margin:0">Our SDKs are JavaScript and TypeScript — <code style="font-size:11px;color:var(--gold2)">camelCase</code> is the native convention. Mixing formats is exactly how <code style="font-size:11px;color:var(--gold2)">gp:role</code> and <code style="font-size:11px;color:var(--gold2)">gp:user.role</code> ended up as two separate properties meaning the same thing. That's a migration to fix. Consistent casing closes that door permanently.</p></div></div></div>
+    <div class="rule-card"><div class="g2" style="gap:16px;align-items:start"><div><div class="rule-h">Rule 3 — One event per action (Pattern A)</div><div class="rule-ex rule-bad" style="margin-bottom:6px">✗ &nbsp;VideoVisit + action: "started" / "muted" / "ended"</div><div class="rule-ex rule-good">✓ &nbsp;video_call_connected &nbsp;·&nbsp; video_call_end_call_pressed</div></div><div style="background:var(--navy);border-radius:10px;padding:14px 16px"><div style="font-size:10px;font-weight:700;color:var(--gold);letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px">Why</div><p style="font-size:12px;color:rgba(255,255,255,.7);font-weight:300;line-height:1.65;margin:0">Amplitude builds every chart — funnels, retention, session replay filters, alerts — on event <em>names</em>, not property values. A property like <code style="font-size:11px;color:var(--gold2)">action: "ended"</code> is invisible to the funnel engine. Properties describe context. Event names describe what happened. That's the line.</p></div></div></div>
+    <div class="rule-card"><div class="g2" style="gap:16px;align-items:start"><div><div class="rule-h">Rule 4 — Five required properties on every event</div><div style="display:flex;flex-direction:column;gap:5px;margin-top:8px"><div style="display:flex;justify-content:space-between;align-items:center;padding:5px 10px;background:var(--cream);border-radius:6px;border:1px solid var(--border)"><code style="font-size:12px;color:var(--navy);font-weight:600">tenantId</code><span style="font-size:11px;color:var(--t2);font-weight:300">Segment by practice</span></div><div style="display:flex;justify-content:space-between;align-items:center;padding:5px 10px;background:var(--cream);border-radius:6px;border:1px solid var(--border)"><code style="font-size:12px;color:var(--navy);font-weight:600">userType</code><span style="font-size:11px;color:var(--t2);font-weight:300">Separate provider vs patient</span></div><div style="display:flex;justify-content:space-between;align-items:center;padding:5px 10px;background:var(--cream);border-radius:6px;border:1px solid var(--border)"><code style="font-size:12px;color:var(--navy);font-weight:600">platform</code><span style="font-size:11px;color:var(--t2);font-weight:300">Isolate iOS vs Android vs Web</span></div><div style="display:flex;justify-content:space-between;align-items:center;padding:5px 10px;background:var(--cream);border-radius:6px;border:1px solid var(--border)"><code style="font-size:12px;color:var(--navy);font-weight:600">appVersion</code><span style="font-size:11px;color:var(--t2);font-weight:300">Tie regressions to releases</span></div><div style="display:flex;justify-content:space-between;align-items:center;padding:5px 10px;background:var(--cream);border-radius:6px;border:1px solid var(--border)"><code style="font-size:12px;color:var(--navy);font-weight:600">userId</code><span style="font-size:11px;color:var(--t2);font-weight:300">Enable per-user journey analysis</span></div></div></div><div style="background:var(--navy);border-radius:10px;padding:14px 16px"><div style="font-size:10px;font-weight:700;color:var(--gold);letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px">Why</div><p style="font-size:12px;color:rgba(255,255,255,.7);font-weight:300;line-height:1.65;margin:0">Each property unlocks a specific axis of analysis. Without <code style="font-size:11px;color:var(--gold2)">tenantId</code> you can't segment by practice. Without <code style="font-size:11px;color:var(--gold2)">platform</code>, a bug affecting only iOS disappears into aggregated data. Without <code style="font-size:11px;color:var(--gold2)">appVersion</code>, QA can't tie a regression to a release. Remove any one and you lose an entire dimension across every event.</p></div></div></div>
+    <div class="rule-card"><div class="g2" style="gap:16px;align-items:start"><div><div class="rule-h">Rule 5 — Every event must be in schema before it fires</div><div class="blist" style="margin-top:8px"><div class="bli"><div class="bldot"></div><span class="blt">Description — what it tracks &amp; when it fires</span></div><div class="bli"><div class="bldot"></div><span class="blt">Category — feature area (e.g. Video Visits, Scheduling)</span></div><div class="bli"><div class="bldot"></div><span class="blt">UX review required before any event reaches Engineering</span></div></div></div><div style="background:var(--navy);border-radius:10px;padding:14px 16px"><div style="font-size:10px;font-weight:700;color:var(--gold);letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px">Why</div><p style="font-size:12px;color:rgba(255,255,255,.7);font-weight:300;line-height:1.65;margin:0">Most Practice App and Booking Portal events have no description and were never reviewed — they just started firing. Someone wrote a <code style="font-size:11px;color:var(--gold2)">track()</code> call, it shipped, and now we have 1.4M events/month from events nobody documented. The review step catches a wrong name or missing property before it ships — not after millions have fired.</p></div></div></div>
+  </div>
+</div></div>
+
+<!-- S5 TEMPLATE -->
+<div class="slide" id="s5"><div class="body">
+  <div class="ey">Linear template — EFF-885</div>
+  <h1 class="h1">Every Amplitude ticket,<br>fully spec'd before it reaches you.</h1>
+  <p class="sub">A reusable Linear issue template that ensures every new event request is completely defined before Engineering ever touches it.</p>
+  <div class="g2" style="margin-bottom:16px;align-items:start">
+    <div>
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+        <p style="font-size:13px;font-weight:600;color:var(--navy)">What the ticket looks like in Linear</p>
+        <a href="https://linear.app/symplast/issue/EFF-885/create-amplitude-event-issue-template-for-review-proposal" target="_blank" style="font-size:11px;font-weight:500;color:var(--navy);text-decoration:none;background:var(--off);padding:4px 10px;border-radius:6px;border:1px solid var(--border)">View EFF-885 →</a>
+      </div>
+      <div style="background:var(--white);border:1px solid var(--border);border-radius:12px;overflow:hidden;font-size:12px">
+        <div style="padding:14px 18px;border-bottom:1px solid var(--border);background:var(--cream)">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px"><span style="font-size:10px;font-weight:700;color:var(--t3);letter-spacing:.06em">EFF-885</span></div>
+          <p style="font-size:14px;font-weight:600;color:var(--navy);margin:0">Amplitude Event Request — New Feature Instrumentation</p>
+        </div>
+        <div style="padding:12px 18px;border-bottom:1px solid var(--border)">
+          <p style="font-size:10px;font-weight:700;color:var(--t3);letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px">Before assigning to Engineering</p>
+          <div style="display:flex;flex-direction:column;gap:5px">
+            <div style="display:flex;align-items:center;gap:7px"><div style="width:12px;height:12px;border-radius:3px;background:var(--grnbg);border:1px solid var(--grnbr);display:flex;align-items:center;justify-content:center;flex-shrink:0"><div style="width:6px;height:4px;border-left:1.5px solid var(--grn);border-bottom:1.5px solid var(--grn);transform:rotate(-45deg) translateY(-1px)"></div></div><span style="color:var(--t2)">Event naming follows Pattern A — one event per action</span></div>
+            <div style="display:flex;align-items:center;gap:7px"><div style="width:12px;height:12px;border-radius:3px;background:var(--grnbg);border:1px solid var(--grnbr);display:flex;align-items:center;justify-content:center;flex-shrink:0"><div style="width:6px;height:4px;border-left:1.5px solid var(--grn);border-bottom:1.5px solid var(--grn);transform:rotate(-45deg) translateY(-1px)"></div></div><span style="color:var(--t2)">Event names in <code style="background:var(--off);padding:1px 4px;border-radius:3px">snake_case</code> + <code style="background:var(--off);padding:1px 4px;border-radius:3px">object_action</code> format</span></div>
+            <div style="display:flex;align-items:center;gap:7px"><div style="width:12px;height:12px;border-radius:3px;background:var(--grnbg);border:1px solid var(--grnbr);display:flex;align-items:center;justify-content:center;flex-shrink:0"><div style="width:6px;height:4px;border-left:1.5px solid var(--grn);border-bottom:1.5px solid var(--grn);transform:rotate(-45deg) translateY(-1px)"></div></div><span style="color:var(--t2)">Property names in <code style="background:var(--off);padding:1px 4px;border-radius:3px">camelCase</code></span></div>
+            <div style="display:flex;align-items:center;gap:7px"><div style="width:12px;height:12px;border-radius:3px;background:var(--grnbg);border:1px solid var(--grnbr);display:flex;align-items:center;justify-content:center;flex-shrink:0"><div style="width:6px;height:4px;border-left:1.5px solid var(--grn);border-bottom:1.5px solid var(--grn);transform:rotate(-45deg) translateY(-1px)"></div></div><span style="color:var(--t2)">All 5 required properties listed on every event</span></div>
+            <div style="display:flex;align-items:center;gap:7px"><div style="width:12px;height:12px;border-radius:3px;background:var(--grnbg);border:1px solid var(--grnbr);display:flex;align-items:center;justify-content:center;flex-shrink:0"><div style="width:6px;height:4px;border-left:1.5px solid var(--grn);border-bottom:1.5px solid var(--grn);transform:rotate(-45deg) translateY(-1px)"></div></div><span style="color:var(--t2)">Amplitude events annotated in Figma design</span></div>
+            <div style="display:flex;align-items:center;gap:7px"><div style="width:12px;height:12px;border-radius:3px;background:var(--grnbg);border:1px solid var(--grnbr);display:flex;align-items:center;justify-content:center;flex-shrink:0"><div style="width:6px;height:4px;border-left:1.5px solid var(--grn);border-bottom:1.5px solid var(--grn);transform:rotate(-45deg) translateY(-1px)"></div></div><span style="color:var(--t2)">PM has reviewed and approved the request</span></div>
+          </div>
+        </div>
+        <div style="padding:12px 18px;border-bottom:1px solid var(--border)">
+          <p style="font-size:10px;font-weight:700;color:var(--t3);letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px">Scope</p>
+          <table style="width:100%;border-collapse:collapse;font-size:11px">
+            <tr style="background:var(--cream)"><td style="padding:4px 8px;color:var(--t3);font-weight:600;width:38%;border:1px solid var(--border)">Project / App</td><td style="padding:4px 8px;color:var(--t2);border:1px solid var(--border)">Symplast Practice / Symplast Internal Admin</td></tr>
+            <tr><td style="padding:4px 8px;color:var(--t3);font-weight:600;border:1px solid var(--border)">Feature / Flow</td><td style="padding:4px 8px;color:var(--t2);border:1px solid var(--border)">e.g. Video Visit, Patient Check-In, Intake Forms</td></tr>
+            <tr style="background:var(--cream)"><td style="padding:4px 8px;color:var(--t3);font-weight:600;border:1px solid var(--border)">Category</td><td style="padding:4px 8px;color:var(--t2);border:1px solid var(--border)">e.g. Video Visit / Appointments / EHR / Auth</td></tr>
+            <tr><td style="padding:4px 8px;color:var(--t3);font-weight:600;border:1px solid var(--border)">Platform(s)</td><td style="padding:4px 8px;color:var(--t2);border:1px solid var(--border)">iOS / Android / Web / Windows / All</td></tr>
+            <tr style="background:var(--cream)"><td style="padding:4px 8px;color:var(--t3);font-weight:600;border:1px solid var(--border)">Figma link</td><td style="padding:4px 8px;color:#1E3A7A;border:1px solid var(--border)">Link to design with events annotated</td></tr>
+            <tr><td style="padding:4px 8px;color:var(--t3);font-weight:600;border:1px solid var(--border)">Notion events doc</td><td style="padding:4px 8px;color:#1E3A7A;border:1px solid var(--border)">Link to source-of-truth events document</td></tr>
+          </table>
+        </div>
+        <div style="padding:12px 18px;border-bottom:1px solid var(--border)">
+          <p style="font-size:10px;font-weight:700;color:var(--t3);letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px">Event specification — one row per event</p>
+          <div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse;font-size:10px;min-width:540px">
+            <tr style="background:var(--navy)"><td style="padding:5px 7px;color:var(--gold2);font-weight:600;border:1px solid var(--navy3)">Event name</td><td style="padding:5px 7px;color:var(--gold2);font-weight:600;border:1px solid var(--navy3)">Trigger / when it fires</td><td style="padding:5px 7px;color:var(--gold2);font-weight:600;border:1px solid var(--navy3)">Platform</td><td style="padding:5px 7px;color:var(--gold2);font-weight:600;border:1px solid var(--navy3)">Category</td><td style="padding:5px 7px;color:var(--gold2);font-weight:600;border:1px solid var(--navy3)">Additional props</td></tr>
+            <tr style="background:var(--grnbg)"><td style="padding:5px 7px;font-family:ui-monospace,monospace;color:var(--grn);border:1px solid var(--border);font-weight:600">consent_form_signed</td><td style="padding:5px 7px;color:var(--t2);border:1px solid var(--border)">Patient submits signature</td><td style="padding:5px 7px;color:var(--t2);border:1px solid var(--border)">iOS, Android</td><td style="padding:5px 7px;color:var(--t2);border:1px solid var(--border)">Consent Forms</td><td style="padding:5px 7px;font-family:ui-monospace,monospace;color:var(--t2);border:1px solid var(--border)">formId, signatureMethod</td></tr>
+            <tr><td style="padding:5px 7px;font-family:ui-monospace,monospace;color:var(--grn);border:1px solid var(--border);font-weight:600">consent_form_rejected</td><td style="padding:5px 7px;color:var(--t2);border:1px solid var(--border)">Patient declines a form</td><td style="padding:5px 7px;color:var(--t2);border:1px solid var(--border)">iOS, Android</td><td style="padding:5px 7px;color:var(--t2);border:1px solid var(--border)">Consent Forms</td><td style="padding:5px 7px;font-family:ui-monospace,monospace;color:var(--t2);border:1px solid var(--border)">formId, formName</td></tr>
+          </table></div>
+        </div>
+        <div style="padding:12px 18px;border-bottom:1px solid var(--border)">
+          <p style="font-size:10px;font-weight:700;color:var(--t3);letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px">Property reference — additional properties only</p>
+          <div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse;font-size:10px;min-width:540px">
+            <tr style="background:var(--navy)"><td style="padding:5px 7px;color:var(--gold2);font-weight:600;border:1px solid var(--navy3)">Property</td><td style="padding:5px 7px;color:var(--gold2);font-weight:600;border:1px solid var(--navy3)">Applies to</td><td style="padding:5px 7px;color:var(--gold2);font-weight:600;border:1px solid var(--navy3)">Type</td><td style="padding:5px 7px;color:var(--gold2);font-weight:600;border:1px solid var(--navy3)">When to use</td><td style="padding:5px 7px;color:var(--gold2);font-weight:600;border:1px solid var(--navy3)">Expected values</td></tr>
+            <tr style="background:var(--grnbg)"><td style="padding:5px 7px;font-family:ui-monospace,monospace;color:var(--grn);border:1px solid var(--border);font-weight:600">formId</td><td style="padding:5px 7px;font-family:ui-monospace,monospace;color:var(--t2);border:1px solid var(--border);font-size:9px">consent_form_signed, consent_form_rejected</td><td style="padding:5px 7px;color:var(--t2);border:1px solid var(--border)">string</td><td style="padding:5px 7px;color:var(--t2);border:1px solid var(--border)">Unique ID of the form</td><td style="padding:5px 7px;font-family:ui-monospace,monospace;color:var(--t2);border:1px solid var(--border)">UUID string</td></tr>
+            <tr><td style="padding:5px 7px;font-family:ui-monospace,monospace;color:var(--grn);border:1px solid var(--border);font-weight:600">signatureMethod</td><td style="padding:5px 7px;font-family:ui-monospace,monospace;color:var(--t2);border:1px solid var(--border);font-size:9px">consent_form_signed</td><td style="padding:5px 7px;color:var(--t2);border:1px solid var(--border)">string</td><td style="padding:5px 7px;color:var(--t2);border:1px solid var(--border)">How patient signed</td><td style="padding:5px 7px;font-family:ui-monospace,monospace;color:var(--t2);border:1px solid var(--border)">"draw", "type"</td></tr>
+          </table></div>
+        </div>
+        <div style="padding:12px 18px">
+          <p style="font-size:10px;font-weight:700;color:var(--t3);letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px">Definition of done</p>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px 16px">
+            <div style="display:flex;gap:6px;align-items:flex-start"><div style="width:5px;height:5px;border-radius:50%;background:var(--gold);flex-shrink:0;margin-top:4px"></div><span style="font-size:11px;color:var(--t2)">All events instrumented with correct properties</span></div>
+            <div style="display:flex;gap:6px;align-items:flex-start"><div style="width:5px;height:5px;border-radius:50%;background:var(--gold);flex-shrink:0;margin-top:4px"></div><span style="font-size:11px;color:var(--t2)">Events in Amplitude Data schema with description + category</span></div>
+            <div style="display:flex;gap:6px;align-items:flex-start"><div style="width:5px;height:5px;border-radius:50%;background:var(--gold);flex-shrink:0;margin-top:4px"></div><span style="font-size:11px;color:var(--t2)">Validated in Amplitude within 1 week of release</span></div>
+            <div style="display:flex;gap:6px;align-items:flex-start"><div style="width:5px;height:5px;border-radius:50%;background:var(--gold);flex-shrink:0;margin-top:4px"></div><span style="font-size:11px;color:var(--t2)">Added to Notion Amplitude Events source-of-truth doc</span></div>
+            <div style="display:flex;gap:6px;align-items:flex-start"><div style="width:5px;height:5px;border-radius:50%;background:var(--gold);flex-shrink:0;margin-top:4px"></div><span style="font-size:11px;color:var(--t2)">Figma annotations complete on relevant screens</span></div>
+            <div style="display:flex;gap:6px;align-items:flex-start"><div style="width:5px;height:5px;border-radius:50%;background:var(--gold);flex-shrink:0;margin-top:4px"></div><span style="font-size:11px;color:var(--t2)">PM signs off before closing the issue</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:12px">
+      <div class="card">
+        <p style="font-size:13px;font-weight:600;color:var(--navy);margin-bottom:12px">What the template covers</p>
+        <div class="blist">
+          <div class="bli"><div class="bldot"></div><span class="blt"><strong>Before assigning checklist</strong> — PM-reviewed gate before any ticket goes to Engineering</span></div>
+          <div class="bli"><div class="bldot"></div><span class="blt"><strong>Scope table</strong> — project, feature, category, platform, Figma link, Notion doc</span></div>
+          <div class="bli"><div class="bldot"></div><span class="blt"><strong>Event spec table</strong> — one row per event with trigger, platform, category, required + additional properties</span></div>
+          <div class="bli"><div class="bldot"></div><span class="blt"><strong>Property reference</strong> — type, expected values, and format for every additional property</span></div>
+          <div class="bli"><div class="bldot"></div><span class="blt"><strong>Engineering next steps</strong> — clear instrumentation instructions built into the ticket</span></div>
+          <div class="bli"><div class="bldot"></div><span class="blt"><strong>Definition of done</strong> — PM sign-off, Amplitude validation within 1 week, schema + Notion updated</span></div>
+        </div>
+      </div>
+      <div class="callout">
+        <p class="cah">Why this changes things</p>
+        <p class="cab">Today events are spec'd ad hoc — or not at all. This template means every ticket arrives fully defined. No ambiguity, no back-and-forth. If any section is blank, it goes back to PM. Engineering only sees tickets that are ready to build.</p>
+      </div>
+    </div>
+  </div>
+</div></div>
+
+<!-- S6 PLAN -->
+<div class="slide" id="s6"><div class="body">
+  <div class="ey">The plan</div>
+  <h1 class="h1">Six milestones.<br>Here's where we are.</h1>
+  <p class="sub">Migration is sequenced to touch each app once. Consolidation comes first — Pattern A follows in the same engineering pass.</p>
+  <div class="g2">
+    <div class="mtrack" id="milestones"></div>
+    <div style="display:flex;flex-direction:column;gap:14px">
+      <div class="card">
+        <p style="font-size:13px;font-weight:600;color:var(--navy);margin-bottom:14px">Consolidation priorities — Phase 1</p>
+        <div class="blist">
+          <div class="bli"><div class="bldot"></div><span class="blt"><strong>Step 1</strong> — Practice App becomes the base. Patient App, Booking Portal, Kiosk &amp; Forms all migrate into it</span></div>
+          <div class="bli"><div class="bldot"></div><span class="blt"><strong>Step 2</strong> — Align shared schema, naming conventions &amp; user properties across all products</span></div>
+          <div class="bli"><div class="bldot"></div><span class="blt"><strong>Step 3</strong> — Run Pattern A event migrations in the same engineering pass per app</span></div>
+          <div class="bli"><div class="bldot" style="background:var(--purp)"></div><span class="blt"><strong style="color:var(--purp)">Later phase</strong> — Symplast Internal Admin scoped as a separate project</span></div>
+        </div>
+      </div>
+      <div class="card">
+        <p style="font-size:13px;font-weight:600;color:var(--navy);margin-bottom:4px">Capabilities — before vs after</p>
+        <p style="font-size:11px;color:var(--t3);margin-bottom:14px">0 = not possible today · 5 = fully unlocked</p>
+        <canvas id="radar" height="200"></canvas>
+      </div>
+    </div>
+  </div>
+</div></div>
+
+<!-- S7 OPPORTUNITIES -->
+<div class="slide" id="s7"><div class="body">
+  <div class="ey">Untapped opportunities — EFF-11</div>
+  <h1 class="h1">What we can build<br>the moment the data is clean.</h1>
+  <p class="sub">Ranked by impact. Most of these can start immediately — no new Engineering work needed once migration is done.</p>
+  <div style="display:flex;flex-direction:column;gap:14px;margin-bottom:20px">
+
+    <div class="opp-card" style="border-left:3px solid var(--navy)">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px">
+        <div class="opp-ey">Funnel analysis</div>
+        <span class="badge bx" style="flex-shrink:0;margin-left:16px">Core</span>
+      </div>
+      <p class="opp-title">Where are users dropping off?</p>
+      <p class="opp-desc">Track exactly where users abandon a flow — from appointment booking to video call completion to checkout. Requires one event per step.</p>
+      <a href="https://amplitude.com/docs/analytics/charts/funnel-analysis" target="_blank" class="opp-link">Docs →</a>
+      <a href="https://amplitude.com/docs/analytics/charts/funnel-analysis/funnel-analysis-build" target="_blank" class="opp-link">Build a funnel →</a>
+      <a href="https://academy.amplitude.com" target="_blank" class="opp-link">Academy course →</a>
+    </div>
+
+    <div class="opp-card" style="border-left:3px solid var(--navy)">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px">
+        <div class="opp-ey">Retention analysis</div>
+        <span class="badge bx" style="flex-shrink:0;margin-left:16px">Core</span>
+      </div>
+      <p class="opp-title">Are users coming back?</p>
+      <p class="opp-desc">Measure whether patients and providers return after key actions. Track cohorts by signup week, first appointment, first video call — and see exactly when engagement drops off.</p>
+      <a href="https://amplitude.com/docs/analytics/charts/retention-analysis" target="_blank" class="opp-link">Docs →</a>
+      <a href="https://amplitude.com/explore/analytics/cohort-retention-analysis" target="_blank" class="opp-link">Cohort guide →</a>
+      <a href="https://academy.amplitude.com/drive-product-adoption-with-retention-analysis" target="_blank" class="opp-link">Academy →</a>
+    </div>
+
+    <div class="opp-card" style="border-left:3px solid var(--navy)">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px">
+        <div class="opp-ey">Session replay</div>
+        <span class="badge bb" style="flex-shrink:0;margin-left:16px">Powerful</span>
+      </div>
+      <p class="opp-title">Watch exactly what users do.</p>
+      <p class="opp-desc">Filter replays by any event — watch only sessions where a user dropped off a funnel step, hit an error, or triggered a specific action. Already live in Practice App, Booking Portal, and Patient App. Needs Pattern A events to be fully useful.</p>
+      <a href="https://amplitude.com/docs/session-replay" target="_blank" class="opp-link">Docs →</a>
+      <a href="https://amplitude.com/docs/session-replay/session-replay-plugin" target="_blank" class="opp-link">Getting started →</a>
+    </div>
+
+    <div class="opp-card" style="border-left:3px solid var(--gold)">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px">
+        <div class="opp-ey">Journeys &amp; pathfinder</div>
+        <span class="badge bgo" style="flex-shrink:0;margin-left:16px">Advanced</span>
+      </div>
+      <p class="opp-title">What paths are users actually taking?</p>
+      <p class="opp-desc">Discover the real paths users take — not just the ones you designed. See where they go before converting, where they get lost, and what unexpected routes drive the best outcomes.</p>
+      <a href="https://amplitude.com/docs/analytics/charts/journeys" target="_blank" class="opp-link">Journeys docs →</a>
+      <a href="https://amplitude.com/docs/analytics/charts/journeys/pathfinder" target="_blank" class="opp-link">Pathfinder →</a>
+    </div>
+
+    <div class="opp-card" style="border-left:3px solid var(--gold)">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px">
+        <div class="opp-ey">Behavioral cohorts</div>
+        <span class="badge bgo" style="flex-shrink:0;margin-left:16px">Advanced</span>
+      </div>
+      <p class="opp-title">Who are your most engaged users?</p>
+      <p class="opp-desc">Group users by actions they've taken — e.g. patients who booked and completed an appointment, or providers who used video visits 3+ times. Build targeted analysis and messaging from those groups. We already have 4 cohorts built — none are connected to any chart yet.</p>
+      <a href="https://academy.amplitude.com/conversion-webinar" target="_blank" class="opp-link">Conversion webinar →</a>
+      <a href="https://amplitude.com/docs/analytics/behavioral-cohorts" target="_blank" class="opp-link">Cohorts overview →</a>
+    </div>
+
+    <div class="opp-card" style="border-left:3px solid var(--gold)">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px">
+        <div class="opp-ey">Anomaly detection &amp; alerts</div>
+        <span class="badge bgo" style="flex-shrink:0;margin-left:16px">Advanced</span>
+      </div>
+      <p class="opp-title">Know when something breaks — before users tell you.</p>
+      <p class="opp-desc">Set alerts on event volume — get notified when a key event spikes or drops unexpectedly. Only works reliably when events are clean, consistent, and named correctly. Zero alerts configured today.</p>
+      <a href="https://academy.amplitude.com/page/live-training" target="_blank" class="opp-link">Amplitude Academy →</a>
+      <a href="https://amplitude.com/docs/analytics/insights" target="_blank" class="opp-link">Insights &amp; alerts →</a>
+    </div>
+
+    <div class="opp-card" style="border-left:3px solid var(--gold)">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px">
+        <div class="opp-ey">Experiments &amp; feature flags</div>
+        <span class="badge bp" style="flex-shrink:0;margin-left:16px">After migration</span>
+      </div>
+      <p class="opp-title">Stop guessing. Start measuring.</p>
+      <p class="opp-desc">No experiments or feature flags configured. Once Pattern A migration is complete, we can A/B test booking layouts, consent form placement, and video visit UI — measured against real outcomes, not gut feel.</p>
+      <a href="https://amplitude.com/docs/feature-experiment/experiment-quick-start" target="_blank" class="opp-link">Experiment quick start →</a>
+      <a href="https://academy.amplitude.com/path/getting-started-with-amplitude-experiment-learning-path" target="_blank" class="opp-link">Academy →</a>
+    </div>
+
+    <div class="opp-card" style="border-left:3px solid var(--gold)">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px">
+        <div class="opp-ey">Guides &amp; surveys</div>
+        <span class="badge bp" style="flex-shrink:0;margin-left:16px">After migration</span>
+      </div>
+      <p class="opp-title">Communicate in-product without Engineering.</p>
+      <p class="opp-desc">One survey draft exists — never published. This is the only capability that enables direct in-product communication without Engineering work. Post-visit surveys, consent form reminders, first-use tooltips, NPS surveys for active providers — all buildable by UX independently.</p>
+      <a href="https://amplitude.com/docs/guides-and-surveys/guides/guide-overview" target="_blank" class="opp-link">Guides overview →</a>
+      <a href="https://amplitude.com/docs/guides-and-surveys/guides/build-a-survey" target="_blank" class="opp-link">Build a survey →</a>
+    </div>
+
+  </div>
+  <div class="callout">
+    <p class="cah">The bottom line</p>
+    <p class="cab">All of this exists in our Amplitude plan today. We're not missing the tools — we're missing the clean data to power them. That's exactly what this project fixes.</p>
+  </div>
+</div></div>
+
+<!-- S8 NEXT STEPS -->
+<div class="slide" id="s8"><div class="body">
+  <div class="ey">Next steps</div>
+  <h1 class="h1">Four decisions.<br>Let's land them today.</h1>
+  <p class="sub">This is a proposal — we want your feedback and to leave with a clear path forward.</p>
+  <div class="g2" style="margin-bottom:20px">
+    <div class="card">
+      <p style="font-size:13px;font-weight:600;color:var(--navy);margin-bottom:18px">We need alignment on</p>
+      <div class="row"><div class="anum">1</div><div><p class="at">Approve the event standard</p><p class="an">Pattern A · <code style="font-size:12px;background:var(--off);padding:1px 5px;border-radius:4px">snake_case</code> events · <code style="font-size:12px;background:var(--off);padding:1px 5px;border-radius:4px">camelCase</code> properties</p></div></div>
+      <div class="row"><div class="anum">2</div><div><p class="at">Approve the consolidated project structure</p><p class="an">One customer-facing project · Symplast Internal Admin as a separate later phase</p></div></div>
+      <div class="row"><div class="anum">3</div><div><p class="at">Prioritise consolidation in the backlog</p><p class="an">Project consolidation first — Pattern A migration runs in the same pass per app</p></div></div>
+      <div class="row"><div class="anum">4</div><div><p class="at">Analytics Lead — UX owns, Product co-owns</p><p class="an">UX leads schema reviews &amp; quarterly audits · Product co-owns while UX team is being built out</p></div></div>
+    </div>
+    <div>
+      <div class="callout" style="margin-top:0">
+        <p class="cah">What we unlock</p>
+        <p class="cab">Funnels · Retention · Journeys · Session replay · Anomaly alerts · Cohort analysis · Guides &amp; Surveys · Experiments — all in our plan today, none of it usable without clean data.</p>
+      </div>
+    </div>
+  </div>
+</div></div>
+
+<div class="fnav">
+  <button class="fbtn" id="prev" onclick="nav(-1)" disabled>← Back</button>
+  <span class="fcnt" id="fcnt">1 / 9</span>
+  <button class="fbtn p" id="nxt" onclick="nav(1)">Next →</button>
+</div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+<script>
+let cur=0,tot=9;
+const lbls=['Intro','Audit','Consolidation','Pattern A','Guidelines','Template','Plan','Opportunities','Next steps'];
+const nt=document.getElementById('navtabs');
+lbls.forEach((l,i)=>{const b=document.createElement('button');b.className='ntab'+(i===0?' a':'');b.textContent=l;b.onclick=()=>goTo(i);nt.appendChild(b);});
+function goTo(n){
+  document.querySelectorAll('.slide').forEach((s,i)=>s.classList.toggle('on',i===n));
+  document.querySelectorAll('.ntab').forEach((b,i)=>b.classList.toggle('a',i===n));
+  document.getElementById('prev').disabled=n===0;
+  const nb=document.getElementById('nxt');nb.disabled=n===tot-1;nb.textContent=n===tot-1?'Done':'Next →';
+  document.getElementById('fcnt').textContent=(n+1)+' / '+tot;
+  document.getElementById('plbl').textContent=(n+1)+'/'+tot;
+  cur=n;
+}
+function nav(d){goTo(Math.max(0,Math.min(tot-1,cur+d)));}
+
+const dd=[{label:'[WindowsPracticeApp] View Opened',v:1410606,c:'#0A1628'},{label:'EHRNotePage.TakeImage',v:30057,c:'#1E3355'},{label:'VideoVisit',v:19930,c:'#C9A55A'},{label:'Modal Opened',v:8641,c:'#4A7AAA'},{label:'Other Pattern B',v:9610,c:'#C8C2B8'}];
+const dtot=dd.reduce((a,b)=>a+b.v,0);
+setTimeout(()=>{
+  new Chart(document.getElementById('donut').getContext('2d'),{type:'doughnut',data:{labels:dd.map(d=>d.label),datasets:[{data:dd.map(d=>d.v),backgroundColor:dd.map(d=>d.c),borderWidth:0,hoverOffset:4}]},options:{cutout:'68%',plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>{const p=Math.round(ctx.raw/dtot*100);return ' '+ctx.raw.toLocaleString()+' ('+p+'%)';}}}},animation:{duration:500}}});
+  document.getElementById('donut-legend').innerHTML=dd.map(d=>`<div style="display:flex;align-items:center;gap:10px;margin-bottom:10px"><div style="width:10px;height:10px;border-radius:3px;background:${d.c};flex-shrink:0"></div><span style="font-size:12px;color:var(--t2);flex:1;line-height:1.4">${d.label}</span><span style="font-size:12px;font-weight:600;color:var(--navy)">${d.v>=1000000?(d.v/1000000).toFixed(2)+'M':d.v.toLocaleString()}</span></div>`).join('');
+},100);
+
+const cdata={
+  before:[{l:'Provider funnels',s:'b',n:'Practice App only'},{l:'Patient funnels',s:'b',n:'Patient App only'},{l:'Cross-workflow journeys',s:'b',n:'Impossible — no shared stream'},{l:'Retention by cohort',s:'b',n:'Siloed — provider + patient disconnected'},{l:'Session replay filtering',s:'m',n:'Per-product only'},{l:'Anomaly alerts',s:'m',n:'Per-product baselines only'}],
+  after:[{l:'Provider funnels',s:'g',n:'Full funnel → provider to patient outcome'},{l:'Patient funnels',s:'g',n:'Full context with provider-side triggers'},{l:'Cross-workflow journeys',s:'g',n:'End-to-end across all five products'},{l:'Retention by cohort',s:'g',n:'Correlate any action with downstream retention'},{l:'Session replay filtering',s:'g',n:'Across any product in one place'},{l:'Anomaly alerts',s:'g',n:'Cross-product baselines — catch regressions anywhere'}]
+};
+function showCon(m){
+  document.querySelectorAll('#cseg .sb').forEach((b,i)=>b.classList.toggle('on',i===(m==='before'?0:1)));
+  document.getElementById('cv').innerHTML=cdata[m].map(x=>{
+    const g=x.s==='g',b=x.s==='b';
+    const bg=g?'var(--grnbg)':b?'var(--redbg)':'var(--ambbg)';
+    const bc=g?'var(--grnbr)':b?'var(--redbr)':'var(--ambbr)';
+    const tc=g?'var(--grn)':b?'var(--red)':'var(--amb)';
+    const dc=g?'#2A8050':b?'#B83232':'#B07020';
+    const lbl=g?'Unlocked':b?'Blocked':'Limited';
+    return `<div class="row"><div class="rdot" style="background:${dc}"></div><div style="flex:1"><span class="rt">${x.l}</span><br><span class="rn">${x.n}</span></div><span class="sp" style="background:${bg};color:${tc};border-color:${bc}">${lbl}</span></div>`;
+  }).join('');
+}
+showCon('before');
+
+function showEx(id){
+  ['video','window','screen'].forEach(k=>document.getElementById('ex-'+k).style.display=k===id?'block':'none');
+  document.querySelectorAll('#exseg .sb').forEach((b,i)=>b.classList.toggle('on',['video','window','screen'][i]===id));
+}
+
+const ms=[{s:'done',t:'Audit',d:'All five products audited · 12 Pattern B events mapped · Migration specs ready'},{s:'now',t:'Standards',d:'Naming convention doc · Linear template · UX analytics lead role defined'},{s:'now',t:'Project consolidation + Pattern A migration',d:'One engineering pass per app · Consolidation first · VideoVisit spec ready now'},{s:'later',t:'Schema cleanup',d:'Descriptions · Categories · Kiosk instrumented from scratch'},{s:'later',t:'Analytics activation',d:'Funnels · Retention · Session replays · Anomaly alerts'},{s:'later',t:'Ongoing governance',d:'Quarterly audits by UX · Schema reviews · Linear template enforced'}];
+document.getElementById('milestones').innerHTML=ms.map((m,i)=>{
+  const isLast=i===ms.length-1;
+  const cc=m.s==='done'?'#1A5C38':m.s==='now'?'#7A4E18':'#7A8FA3';
+  const cbg=m.s==='done'?'var(--grnbg)':m.s==='now'?'var(--ambbg)':'var(--off)';
+  const cbr=m.s==='done'?'var(--grnbr)':m.s==='now'?'var(--ambbr)':'var(--border)';
+  const lbl=m.s==='done'?'Done':m.s==='now'?'Now':'Upcoming';
+  const lc=m.s==='done'?'done':m.s==='now'?'now':'';
+  return `<div class="ms-row"><div class="ms-left"><div class="ms-circle" style="background:${cbg};border:1.5px solid ${cbr};color:${cc}">${i+1}</div>${!isLast?`<div class="ms-line ${lc}"></div>`:''}</div><div class="ms-content"><div style="display:flex;align-items:center;gap:8px;margin-bottom:3px"><span class="ms-title">${m.t}</span><span class="badge" style="font-size:10px;padding:2px 8px;background:${cbg};color:${cc};border:1px solid ${cbr}">${lbl}</span></div><p class="ms-desc">${m.d}</p></div></div>`;
+}).join('');
+
+setTimeout(()=>{
+  new Chart(document.getElementById('radar').getContext('2d'),{type:'bar',data:{labels:['Funnels','Retention','Journeys','Replays','Alerts','Adoption'],datasets:[{label:'Today',data:[1,1,0,2,1,1],backgroundColor:'rgba(184,50,50,.15)',borderColor:'rgba(184,50,50,.7)',borderWidth:1.5,borderRadius:4},{label:'After',data:[5,5,5,5,5,5],backgroundColor:'rgba(26,92,56,.12)',borderColor:'rgba(26,92,56,.7)',borderWidth:1.5,borderRadius:4}]},options:{responsive:true,plugins:{legend:{position:'top',labels:{font:{size:11,family:'Inter'},boxWidth:10,padding:10}}},scales:{y:{min:0,max:5,ticks:{stepSize:1,font:{size:10},color:'#7A8FA3'},grid:{color:'rgba(0,0,0,.05)'}},x:{ticks:{font:{size:10},color:'#3D4F63'},grid:{display:false}}}}});
+},300);
+</script>
